@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Calendar,
   AlertTriangle,
@@ -5,10 +6,16 @@ import {
   FileText,
   Sparkles,
   Clock,
+  Mic,
+  MicOff,
 } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
+  const { toast } = useToast();
+  const [listening, setListening] = useState(false);
+  const [commandText, setCommandText] = useState("");
+
   const now = new Date();
   const greeting =
     now.getHours() < 12 ? "Good morning" : now.getHours() < 17 ? "Good afternoon" : "Good evening";
@@ -18,6 +25,42 @@ const Dashboard = () => {
     month: "long",
     day: "numeric",
   });
+
+  const toggleVoice = () => {
+    if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
+      toast({ title: "Voice not supported", description: "Your browser doesn't support speech recognition.", variant: "destructive" });
+      return;
+    }
+    if (listening) {
+      setListening(false);
+      toast({ title: "Voice stopped", description: "Stopped listening." });
+      return;
+    }
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    setListening(true);
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setCommandText(transcript);
+      setListening(false);
+      toast({ title: "Voice Command", description: `"${transcript}" — Processing...` });
+    };
+    recognition.onerror = () => {
+      setListening(false);
+      toast({ title: "Voice Error", description: "Could not understand. Try again.", variant: "destructive" });
+    };
+    recognition.onend = () => setListening(false);
+    recognition.start();
+  };
+
+  const handleCommand = () => {
+    if (!commandText.trim()) return;
+    toast({ title: "AI Command Sent", description: `Processing: "${commandText}"` });
+    setCommandText("");
+  };
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -31,22 +74,36 @@ const Dashboard = () => {
             <Calendar className="w-4 h-4" /> {dateStr}
           </p>
         </div>
-        <div className="flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2 text-sm">
-          <span className="w-2 h-2 rounded-full bg-success" />
+        <div className="flex items-center gap-2 glass-card rounded-full px-4 py-2 text-sm">
+          <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
           <span className="text-muted-foreground">System Status</span>
           <span className="font-semibold text-success">All Active</span>
         </div>
       </div>
 
       {/* AI Command */}
-      <div className="bg-card border border-border rounded-xl p-4 flex items-center gap-3">
+      <div className="glass-card rounded-xl p-4 flex items-center gap-3">
         <Sparkles className="w-5 h-5 text-primary" />
         <input
           type="text"
+          value={commandText}
+          onChange={(e) => setCommandText(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleCommand()}
           placeholder="Type an AI command or request high-level summary..."
           className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none flex-1"
         />
-        <button className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-primary-foreground hover:opacity-90 transition">
+        <button
+          onClick={toggleVoice}
+          className={`w-9 h-9 rounded-lg flex items-center justify-center transition ${
+            listening ? "bg-destructive text-white animate-pulse" : "bg-secondary text-muted-foreground hover:bg-accent"
+          }`}
+        >
+          {listening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+        </button>
+        <button
+          onClick={handleCommand}
+          className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center text-white hover:opacity-90 transition shadow-md"
+        >
           <TrendingUp className="w-4 h-4" />
         </button>
       </div>
@@ -60,7 +117,7 @@ const Dashboard = () => {
           subtitle="Starts in 2 hours"
           metricLabel="PREP STATUS"
           metricValue={80}
-          metricColor="bg-primary"
+          gradientClass="gradient-primary"
         />
         <SummaryCard
           icon={<AlertTriangle className="w-5 h-5 text-destructive" />}
@@ -69,7 +126,7 @@ const Dashboard = () => {
           subtitle="Attention required today"
           metricLabel="TASK COMPLETION"
           metricValue={65}
-          metricColor="bg-destructive"
+          gradientClass="gradient-warm"
         />
         <SummaryCard
           icon={<TrendingUp className="w-5 h-5 text-success" />}
@@ -78,7 +135,7 @@ const Dashboard = () => {
           subtitle="+3.1% from last week"
           metricLabel="ENGAGEMENT SCORE"
           metricValue={94}
-          metricColor="bg-success"
+          gradientClass="gradient-cool"
         />
       </div>
 
@@ -87,9 +144,14 @@ const Dashboard = () => {
         <div className="col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
-              Intelligence Feed <span className="w-2 h-2 rounded-full bg-success" />
+              Intelligence Feed <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
             </h2>
-            <button className="text-sm font-semibold text-primary hover:underline">View History</button>
+            <button
+              onClick={() => toast({ title: "Feed History", description: "Showing all past intelligence items." })}
+              className="text-sm font-semibold text-primary hover:underline"
+            >
+              View History
+            </button>
           </div>
 
           <FeedItem
@@ -116,22 +178,22 @@ const Dashboard = () => {
 
         {/* Right sidebar */}
         <div className="space-y-4">
-          <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+          <div className="glass-card rounded-xl p-5 space-y-4">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
               <TrendingUp className="w-4 h-4" /> Ministry Health
             </h3>
-            <MetricRow label="Team Engagement" value={88} color="bg-primary" />
-            <MetricRow label="Operational Load" value={42} color="bg-info" />
+            <MetricRow label="Team Engagement" value={88} color="gradient-primary" />
+            <MetricRow label="Operational Load" value={42} color="gradient-cool" />
           </div>
 
-          <div className="bg-card border border-border rounded-xl p-5 space-y-3">
+          <div className="glass-card rounded-xl p-5 space-y-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Response Time
             </h3>
             <p className="text-3xl font-bold text-foreground">0.4s</p>
           </div>
 
-          <div className="bg-card border border-border rounded-xl p-5 space-y-3">
+          <div className="glass-card rounded-xl p-5 space-y-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Upcoming Events
             </h3>
@@ -155,7 +217,7 @@ const SummaryCard = ({
   subtitle,
   metricLabel,
   metricValue,
-  metricColor,
+  gradientClass,
 }: {
   icon: React.ReactNode;
   label: string;
@@ -163,9 +225,9 @@ const SummaryCard = ({
   subtitle: string;
   metricLabel: string;
   metricValue: number;
-  metricColor: string;
+  gradientClass: string;
 }) => (
-  <div className="bg-card border border-border rounded-xl p-5 space-y-4 animate-fade-in">
+  <div className="glass-card rounded-xl p-5 space-y-4 animate-fade-in">
     <div className="flex items-start justify-between">
       <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">{icon}</div>
       <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{label}</span>
@@ -182,7 +244,7 @@ const SummaryCard = ({
         <span className="text-foreground">{metricValue}%</span>
       </div>
       <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
-        <div className={`h-full rounded-full ${metricColor}`} style={{ width: `${metricValue}%` }} />
+        <div className={`h-full rounded-full ${gradientClass}`} style={{ width: `${metricValue}%` }} />
       </div>
     </div>
   </div>
@@ -202,39 +264,43 @@ const FeedItem = ({
   time: string;
   actions?: string[];
   badge?: string;
-}) => (
-  <div className="bg-card border border-border rounded-xl p-5 flex gap-4 animate-fade-in">
-    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shrink-0">{icon}</div>
-    <div className="flex-1 min-w-0">
-      <div className="flex items-start justify-between">
-        <h4 className="font-semibold text-foreground">{title}</h4>
-        <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">{time}</span>
-      </div>
-      <p className="text-sm text-muted-foreground mt-1">{description}</p>
-      {actions && (
-        <div className="flex gap-2 mt-3">
-          {actions.map((a, i) => (
-            <button
-              key={a}
-              className={`px-4 py-1.5 rounded-lg text-sm font-medium transition ${
-                i === 0
-                  ? "bg-primary text-primary-foreground hover:opacity-90"
-                  : "bg-secondary text-foreground hover:bg-muted"
-              }`}
-            >
-              {a}
-            </button>
-          ))}
+}) => {
+  const { toast } = useToast();
+  return (
+    <div className="glass-card rounded-xl p-5 flex gap-4 animate-fade-in">
+      <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shrink-0">{icon}</div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between">
+          <h4 className="font-semibold text-foreground">{title}</h4>
+          <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">{time}</span>
         </div>
-      )}
-      {badge && (
-        <p className="text-xs font-semibold text-success mt-2 flex items-center gap-1">
-          <Sparkles className="w-3 h-3" /> {badge}
-        </p>
-      )}
+        <p className="text-sm text-muted-foreground mt-1">{description}</p>
+        {actions && (
+          <div className="flex gap-2 mt-3">
+            {actions.map((a, i) => (
+              <button
+                key={a}
+                onClick={() => toast({ title: a, description: `Action "${a}" triggered for "${title}".` })}
+                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition ${
+                  i === 0
+                    ? "gradient-primary text-white shadow-sm hover:opacity-90"
+                    : "bg-secondary text-foreground hover:bg-muted"
+                }`}
+              >
+                {a}
+              </button>
+            ))}
+          </div>
+        )}
+        {badge && (
+          <p className="text-xs font-semibold text-success mt-2 flex items-center gap-1">
+            <Sparkles className="w-3 h-3" /> {badge}
+          </p>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const MetricRow = ({ label, value, color }: { label: string; value: number; color: string }) => (
   <div>
