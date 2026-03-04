@@ -17,7 +17,7 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
         </div>
         <div className="text-center">
           <h1 className="text-3xl font-bold" style={{ color: 'hsl(40 50% 90%)' }}>
-            {signingIn ? "Welcome back, Pastor Paul" : "Pastor Paul's PPA"}
+            {signingIn ? "Welcome back" : "PPA"}
           </h1>
           <p className="mt-2" style={{ color: 'hsl(35 15% 55%)' }}>
             {signingIn ? "Signing you in..." : "AI-Powered Executive Intelligence"}
@@ -39,7 +39,7 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
             className="mt-4 gradient-primary text-primary-foreground font-semibold px-8 py-3 rounded-full flex items-center gap-2 shadow-lg gold-glow hover:opacity-90 transition"
           >
             <LogIn className="w-4 h-4" />
-            Sign In as Pastor Paul
+            Sign In to PPA
           </button>
         )}
       </div>

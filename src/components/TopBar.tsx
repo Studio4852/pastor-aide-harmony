@@ -27,7 +27,7 @@ const TopBar = () => {
         </button>
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <p className="text-sm font-semibold text-foreground">Pastor Paul</p>
+            <p className="text-sm font-semibold text-foreground">PPA</p>
             <p className="text-[11px] uppercase tracking-wider text-primary font-semibold">AI-Powered Executive Intelligence</p>
           </div>
           <div className="w-9 h-9 rounded-full gradient-primary flex items-center justify-center shadow-md gold-glow">

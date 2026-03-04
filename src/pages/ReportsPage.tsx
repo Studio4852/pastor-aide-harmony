@@ -35,10 +35,10 @@ const generatedReports = [
 ];
 
 const actionItems = [
-  { task: "Follow up with Elder Board on Q1 budget", due: "Mar 5", status: "overdue", assignee: "Pastor Paul" },
+  { task: "Follow up with Elder Board on Q1 budget", due: "Mar 5", status: "overdue", assignee: "PPA" },
   { task: "Review youth conference feedback", due: "Mar 7", status: "pending", assignee: "Youth Ministry Lead" },
-  { task: "Submit annual health insurance forms", due: "Mar 10", status: "pending", assignee: "Pastor Paul" },
-  { task: "Approve sermon series schedule for April", due: "Mar 12", status: "pending", assignee: "Pastor Paul" },
+  { task: "Submit annual health insurance forms", due: "Mar 10", status: "pending", assignee: "PPA" },
+  { task: "Approve sermon series schedule for April", due: "Mar 12", status: "pending", assignee: "PPA" },
 ];
 
 const alerts = [
