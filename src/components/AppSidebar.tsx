@@ -1,13 +1,14 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Calendar,
   MessageSquare,
   FileText,
   Heart,
-  Settings,
   BookOpen,
   CalendarDays,
+  LogOut,
+  Sparkles,
 } from "lucide-react";
 
 const navItems = [
@@ -20,19 +21,19 @@ const navItems = [
   { to: "/health", icon: Heart, label: "Health" },
 ];
 
-const AppSidebar = () => {
+const AppSidebar = ({ onSignOut }: { onSignOut: () => void }) => {
   const location = useLocation();
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-60 flex flex-col z-30" style={{ background: 'hsl(240, 20%, 14%)' }}>
+    <aside className="fixed left-0 top-0 bottom-0 w-60 flex flex-col z-30 bg-sidebar border-r border-border/30">
       {/* Logo */}
       <div className="px-6 py-5 flex items-center gap-3">
-        <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center shadow-lg">
-          <span className="text-white font-bold text-lg">P</span>
+        <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center shadow-lg gold-glow">
+          <Sparkles className="w-4 h-4 text-primary-foreground" />
         </div>
         <div>
-          <h1 className="font-bold text-white text-lg leading-tight">PPA</h1>
-          <span className="text-[10px] uppercase tracking-widest text-white/50">Pastor Paul</span>
+          <h1 className="font-bold text-primary text-lg leading-tight">PPA</h1>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Executive Intelligence</span>
         </div>
       </div>
 
@@ -46,8 +47,8 @@ const AppSidebar = () => {
               to={item.to}
               className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 isActive
-                  ? "gradient-primary text-white shadow-md"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? "gradient-primary text-primary-foreground shadow-md gold-glow"
+                  : "text-muted-foreground hover:text-primary hover:bg-accent/50"
               }`}
             >
               <item.icon className="w-[18px] h-[18px]" />
@@ -57,15 +58,15 @@ const AppSidebar = () => {
         })}
       </nav>
 
-      {/* Bottom */}
-      <div className="px-3 py-4 border-t border-white/10">
-        <NavLink
-          to="/settings"
-          className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:text-white hover:bg-white/5 transition-all"
+      {/* Bottom - Sign Out */}
+      <div className="px-3 py-4 border-t border-border/30">
+        <button
+          onClick={onSignOut}
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-destructive/80 hover:text-destructive hover:bg-destructive/10 transition-all"
         >
-          <Settings className="w-[18px] h-[18px]" />
-          Settings
-        </NavLink>
+          <LogOut className="w-[18px] h-[18px]" />
+          Sign Out
+        </button>
       </div>
     </aside>
   );
