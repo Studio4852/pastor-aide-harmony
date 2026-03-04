@@ -68,7 +68,7 @@ const Dashboard = () => {
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">
-            {greeting}, <span className="text-primary">Pastor Paul</span>
+            {greeting}, <span className="text-primary">PPA</span>
           </h1>
           <p className="text-muted-foreground mt-1 flex items-center gap-2">
             <Calendar className="w-4 h-4" /> {dateStr}
