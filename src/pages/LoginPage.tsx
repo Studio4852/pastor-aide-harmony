@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { Sparkles, LogIn } from "lucide-react";
 
 const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
@@ -16,21 +16,21 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
           <Sparkles className="w-8 h-8 text-primary-foreground" />
         </div>
         <div className="text-center">
-          <h1 className="text-3xl font-bold" style={{ color: 'hsl(40 50% 90%)' }}>
+          <h1 className="text-3xl font-bold" style={{ color: 'hsl(0 0% 15%)' }}>
             {signingIn ? "Welcome back" : "PPA"}
           </h1>
-          <p className="mt-2" style={{ color: 'hsl(35 15% 55%)' }}>
+          <p className="mt-2" style={{ color: 'hsl(0 0% 45%)' }}>
             {signingIn ? "Signing you in..." : "AI-Powered Executive Intelligence"}
           </p>
         </div>
 
-        <div className="flex items-center gap-2 border rounded-full px-6 py-2.5 mt-2 gold-glow" style={{ borderColor: 'hsl(40 80% 50% / 0.3)' }}>
-          <Sparkles className="w-4 h-4" style={{ color: 'hsl(40 80% 55%)' }} />
-          <span className="font-medium text-sm" style={{ color: 'hsl(40 80% 55%)' }}>AI-Powered Executive Intelligence</span>
+        <div className="flex items-center gap-2 border rounded-full px-6 py-2.5 mt-2" style={{ borderColor: 'hsl(40 80% 50% / 0.4)' }}>
+          <Sparkles className="w-4 h-4" style={{ color: 'hsl(40 80% 45%)' }} />
+          <span className="font-medium text-sm" style={{ color: 'hsl(40 80% 45%)' }}>AI-Powered Executive Intelligence</span>
         </div>
 
         {signingIn ? (
-          <div className="mt-4 w-48 h-1 rounded-full overflow-hidden" style={{ background: 'hsl(35 10% 20%)' }}>
+          <div className="mt-4 w-48 h-1 rounded-full overflow-hidden" style={{ background: 'hsl(0 0% 88%)' }}>
             <div className="h-full gradient-primary rounded-full animate-pulse" style={{ width: '70%' }} />
           </div>
         ) : (
