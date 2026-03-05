@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 91%;
+    --background: 0 0% 95%;
     --foreground: 30 10% 15%;
 
     --card: 0 0% 100%;
@@ -45,20 +45,20 @@
 
     --radius: 0.75rem;
 
-    --sidebar-bg: 30 12% 8%;
-    --sidebar-foreground: 35 15% 55%;
+    --sidebar-bg: 0 0% 22%;
+    --sidebar-foreground: 0 0% 70%;
     --sidebar-active: 40 80% 50%;
-    --sidebar-active-foreground: 30 10% 8%;
-    --sidebar-hover: 30 10% 14%;
-    --sidebar-border: 35 10% 16%;
+    --sidebar-active-foreground: 0 0% 10%;
+    --sidebar-hover: 0 0% 28%;
+    --sidebar-border: 0 0% 30%;
 
     --font-display: 'Playfair Display', serif;
     --font-body: 'Inter', sans-serif;
 
-    --sidebar-background: 30 12% 8%;
+    --sidebar-background: 0 0% 22%;
     --sidebar-primary: 40 80% 50%;
-    --sidebar-primary-foreground: 30 10% 8%;
-    --sidebar-accent: 40 60% 18%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 0 0% 28%;
     --sidebar-accent-foreground: 40 80% 65%;
     --sidebar-ring: 40 80% 50%;
 
