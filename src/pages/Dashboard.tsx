@@ -65,16 +65,16 @@ const Dashboard = () => {
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Greeting */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">
             {greeting}, <span className="text-primary">PPA</span>
           </h1>
-          <p className="text-muted-foreground mt-1 flex items-center gap-2">
+          <p className="text-muted-foreground mt-1 flex items-center gap-2 text-sm">
             <Calendar className="w-4 h-4" /> {dateStr}
           </p>
         </div>
-        <div className="flex items-center gap-2 glass-card rounded-full px-4 py-2 text-sm">
+        <div className="flex items-center gap-2 glass-card rounded-full px-4 py-2 text-sm self-start">
           <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
           <span className="text-muted-foreground">System Status</span>
           <span className="font-semibold text-success">All Active</span>
@@ -83,18 +83,18 @@ const Dashboard = () => {
 
       {/* AI Command */}
       <div className="glass-card rounded-xl p-4 flex items-center gap-3">
-        <Sparkles className="w-5 h-5 text-primary" />
+        <Sparkles className="w-5 h-5 text-primary shrink-0" />
         <input
           type="text"
           value={commandText}
           onChange={(e) => setCommandText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleCommand()}
-          placeholder="Type an AI command or request high-level summary..."
-          className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none flex-1"
+          placeholder="Type an AI command..."
+          className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none flex-1 min-w-0"
         />
         <button
           onClick={toggleVoice}
-          className={`w-9 h-9 rounded-lg flex items-center justify-center transition ${
+          className={`w-9 h-9 rounded-lg flex items-center justify-center transition shrink-0 ${
             listening ? "bg-destructive text-white animate-pulse" : "bg-secondary text-muted-foreground hover:bg-accent"
           }`}
         >
@@ -102,14 +102,14 @@ const Dashboard = () => {
         </button>
         <button
           onClick={handleCommand}
-          className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center text-white hover:opacity-90 transition shadow-md"
+          className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center text-white hover:opacity-90 transition shadow-md shrink-0"
         >
           <TrendingUp className="w-4 h-4" />
         </button>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <SummaryCard
           icon={<Calendar className="w-5 h-5 text-primary" />}
           label="NEXT MEETING"
@@ -140,8 +140,8 @@ const Dashboard = () => {
       </div>
 
       {/* Intelligence Feed + Sidebar */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="col-span-2 space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
               Intelligence Feed <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
@@ -267,12 +267,12 @@ const FeedItem = ({
 }) => {
   const { toast } = useToast();
   return (
-    <div className="glass-card rounded-xl p-5 flex gap-4 animate-fade-in">
+    <div className="glass-card rounded-xl p-4 md:p-5 flex gap-3 md:gap-4 animate-fade-in">
       <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shrink-0">{icon}</div>
       <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between gap-2">
           <h4 className="font-semibold text-foreground">{title}</h4>
-          <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">{time}</span>
+          <span className="text-xs text-muted-foreground whitespace-nowrap">{time}</span>
         </div>
         <p className="text-sm text-muted-foreground mt-1">{description}</p>
         {actions && (

@@ -10,8 +10,8 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
   };
 
   return (
-    <div className="min-h-screen login-dark flex flex-col items-center justify-center">
-      <div className="flex flex-col items-center gap-6 animate-fade-in">
+    <div className="min-h-screen login-dark flex flex-col items-center justify-center px-4">
+      <div className="flex flex-col items-center gap-6 animate-fade-in w-full max-w-sm">
         <div className="w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center shadow-xl gold-glow">
           <Sparkles className="w-8 h-8 text-primary-foreground" />
         </div>
@@ -24,8 +24,8 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 border rounded-full px-6 py-2.5 mt-2" style={{ borderColor: 'hsl(40 80% 50% / 0.4)' }}>
-          <Sparkles className="w-4 h-4" style={{ color: 'hsl(40 80% 45%)' }} />
+        <div className="flex items-center gap-2 border rounded-full px-4 sm:px-6 py-2.5 mt-2" style={{ borderColor: 'hsl(40 80% 50% / 0.4)' }}>
+          <Sparkles className="w-4 h-4 shrink-0" style={{ color: 'hsl(40 80% 45%)' }} />
           <span className="font-medium text-sm" style={{ color: 'hsl(40 80% 45%)' }}>AI-Powered Executive Intelligence</span>
         </div>
 
@@ -36,7 +36,7 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
         ) : (
           <button
             onClick={handleSignIn}
-            className="mt-4 gradient-primary text-primary-foreground font-semibold px-8 py-3 rounded-full flex items-center gap-2 shadow-lg gold-glow hover:opacity-90 transition"
+            className="mt-4 gradient-primary text-primary-foreground font-semibold px-8 py-3 rounded-full flex items-center gap-2 shadow-lg gold-glow hover:opacity-90 transition w-full sm:w-auto justify-center"
           >
             <LogIn className="w-4 h-4" />
             Sign In to PPA

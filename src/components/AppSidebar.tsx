@@ -21,7 +21,7 @@ const navItems = [
   { to: "/health", icon: Heart, label: "Health" },
 ];
 
-const AppSidebar = ({ onSignOut }: { onSignOut: () => void }) => {
+const AppSidebar = ({ onSignOut, onNavigate }: { onSignOut: () => void; onNavigate?: () => void }) => {
   const location = useLocation();
 
   return (
@@ -45,6 +45,7 @@ const AppSidebar = ({ onSignOut }: { onSignOut: () => void }) => {
             <NavLink
               key={item.to}
               to={item.to}
+              onClick={onNavigate}
               className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 isActive
                   ? "gradient-primary text-primary-foreground shadow-md"
