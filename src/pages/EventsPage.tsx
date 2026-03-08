@@ -38,12 +38,20 @@ const events = [
 
 const STORAGE_KEY = "ppa-special-dates";
 
+const defaultSpecialDates: SpecialDate[] = [
+  { id: "ex-1", name: "Mom", date: "1965-06-15T00:00:00.000Z", type: "birthday", note: "Loves flowers and chocolate cake" },
+  { id: "ex-2", name: "Pastor James", date: "1978-09-22T00:00:00.000Z", type: "birthday", note: "Gift idea: new study Bible" },
+  { id: "ex-3", name: "Sister Grace", date: "1990-12-03T00:00:00.000Z", type: "birthday" },
+  { id: "ex-4", name: "Wedding Anniversary", date: "2010-04-18T00:00:00.000Z", type: "anniversary", note: "14th year — dinner at our favorite spot" },
+  { id: "ex-5", name: "Church Founding Anniversary", date: "2005-01-10T00:00:00.000Z", type: "anniversary", note: "21 years of faithful service" },
+];
+
 const loadSpecialDates = (): SpecialDate[] => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    return stored ? JSON.parse(stored) : defaultSpecialDates;
   } catch {
-    return [];
+    return defaultSpecialDates;
   }
 };
 
