@@ -84,7 +84,7 @@ const CommunicationPage = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-6 border-b border-border pb-0">
+      <div className="flex gap-3 md:gap-6 border-b border-border pb-0 overflow-x-auto">
         {tabs.map((tab, i) => (
           <button
             key={tab}
