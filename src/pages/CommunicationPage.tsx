@@ -114,8 +114,8 @@ const CommunicationPage = () => {
       </div>
 
       {/* Email list + detail */}
-      <div className="grid grid-cols-5 gap-4">
-        <div className="col-span-2 space-y-2">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="md:col-span-2 space-y-2">
           {filteredEmails.map((email, idx) => {
             const originalIdx = emails.indexOf(email);
             return (
