@@ -35,7 +35,7 @@ const HealthPage = () => {
       </div>
 
       {/* Metrics */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { icon: Heart, label: "Resting HR", value: "68 bpm", sub: "Normal range", color: "text-destructive" },
           { icon: Footprints, label: "Daily Steps", value: "5,600", sub: "Goal: 10,000", color: "text-primary" },
