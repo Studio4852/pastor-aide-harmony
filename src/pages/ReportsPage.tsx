@@ -61,9 +61,9 @@ const ReportsPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Reports</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Reports</h1>
           <p className="text-muted-foreground mt-1">Weekly broadcast highlights & ministry reporting</p>
         </div>
         <button
@@ -75,7 +75,7 @@ const ReportsPage = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-6 border-b border-border pb-0">
+      <div className="flex gap-3 md:gap-6 border-b border-border pb-0 overflow-x-auto">
         {["overview", "reports", "alerts"].map((tab) => (
           <button
             key={tab}
@@ -92,7 +92,7 @@ const ReportsPage = () => {
       {activeTab === "overview" && (
         <>
           {/* KPI Cards */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: "Avg Attendance", value: "471", change: "+8%", icon: TrendingUp, color: "text-primary" },
               { label: "Online Reach", value: "7.5K", change: "+22%", icon: Eye, color: "text-info" },
@@ -111,7 +111,7 @@ const ReportsPage = () => {
           </div>
 
           {/* Charts */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="glass-card rounded-xl p-5">
               <h3 className="font-semibold text-foreground mb-4">Weekly Trends</h3>
               <ResponsiveContainer width="100%" height={220}>
@@ -301,7 +301,7 @@ const ReportsPage = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { label: "Total Alerts", value: "12" },
                 { label: "Resolved", value: "9" },
