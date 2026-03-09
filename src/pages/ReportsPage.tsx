@@ -92,7 +92,7 @@ const ReportsPage = () => {
       {activeTab === "overview" && (
         <>
           {/* KPI Cards */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: "Avg Attendance", value: "471", change: "+8%", icon: TrendingUp, color: "text-primary" },
               { label: "Online Reach", value: "7.5K", change: "+22%", icon: Eye, color: "text-info" },
