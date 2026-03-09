@@ -145,7 +145,7 @@ const CommunicationPage = () => {
           })}
         </div>
 
-        <div className="col-span-3 glass-card rounded-xl p-6">
+        <div className="md:col-span-3 glass-card rounded-xl p-6">
           {selectedEmail !== null ? (
             <div className="space-y-4">
               <div>
